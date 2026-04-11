@@ -14,30 +14,56 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-['Outfit'] antialiased bg-slate-100">
-        <div class="min-h-screen">
+    <body class="font-sans antialiased bg-[#f8fafc] text-slate-900" x-data="{ sidebarOpen: false }">
+        <div class="flex h-screen overflow-hidden">
+            <!-- Sidebar Navigation -->
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+            <!-- Main Content Area -->
+            <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+                <!-- Mobile Header -->
+                <header class="sticky top-0 z-30 flex w-full border-b border-white/20 bg-white/70 backdrop-blur-md lg:hidden">
+                    <div class="flex h-16 w-full items-center justify-between px-4">
+                        <button @click="sidebarOpen = true" class="rounded-lg p-2 text-slate-600 hover:bg-slate-100">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                        <div class="font-semibold text-primary-900">Sistem Masjid</div>
+                        <div class="w-8"></div>
                     </div>
                 </header>
-            @endisset
 
-            <!-- Page Content -->
-            <main>
-                @if (session('success'))
-                    <div class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                            {{ session('success') }}
+                <!-- Page Heading -->
+                @isset($header)
+                    <header class="relative z-10 px-4 pt-8 sm:px-6 lg:px-8">
+                        <div class="max-w-7xl mx-auto">
+                            {{ $header }}
                         </div>
+                    </header>
+                @endisset
+
+                <!-- Page Content -->
+                <main class="flex-1 p-4 pt-4 sm:p-6 lg:p-8">
+                    <div class="max-w-7xl mx-auto">
+                        @if (session('success'))
+                            <div class="mb-6 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 text-sm text-emerald-800 backdrop-blur-sm animate-in fade-in slide-in-from-top-4">
+                                <div class="flex items-center gap-3">
+                                    <svg class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    {{ session('success') }}
+                                </div>
+                            </div>
+                        @endif
+                        {{ $slot }}
                     </div>
-                @endif
-                {{ $slot }}
-            </main>
+                </main>
+
+                <footer class="py-6 px-4 text-center text-xs text-slate-400">
+                    &copy; {{ date('Y') }} {{ config('app.name') }}. Pengurusan Kariah Efisien.
+                </footer>
+            </div>
         </div>
     </body>
 </html>

@@ -4,12 +4,30 @@
 
 @layer base {
     body {
-        @apply bg-slate-100 text-slate-800;
+        @apply bg-[#f8fafc] text-slate-800 selection:bg-primary-100 selection:text-primary-900;
     }
 
     input,
     select,
     textarea {
         @apply text-sm;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-slate-300 hover:bg-slate-400;
+    }
+
+    .glass {
+        @apply border border-white/20 bg-white/70 backdrop-blur-md;
     }
 }

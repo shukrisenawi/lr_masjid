@@ -53,13 +53,13 @@ class DatabaseSeeder extends Seeder
 
         $masterAdminRole = Role::query()->where('name', 'Master Admin')->first();
         User::query()->updateOrCreate(
-            ['email' => 'admin@masjid.local'],
+            ['email' => 'admin@masjid'],
             [
                 'role_id' => $masterAdminRole?->id,
                 'name' => 'masteradmin',
                 'full_name' => 'Master Admin Masjid',
                 'phone' => '60100000000',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('123'),
             ]
         );
     }
