@@ -1,111 +1,103 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between gap-4">
-            <div>
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900">Assalamualaikum, {{ Auth::user()->name }}</h2>
-                <p class="text-slate-500">Selamat datang ke portal pengurusan kariah masjid anda.</p>
-            </div>
-            <div class="hidden sm:block text-right">
-                <p class="text-sm font-bold text-primary-800">{{ now()->format('l') }}</p>
-                <p class="text-xs text-slate-500">{{ now()->format('d F Y') }}</p>
-            </div>
-        </div>
+        <h2 class="text-2xl font-black tracking-tight text-slate-900 capitalize">Transactions</h2>
     </x-slot>
 
     <div class="py-2 space-y-10">
-        <!-- Hero Banner Section -->
-        <div class="relative overflow-hidden rounded-[2rem] bg-primary-900 shadow-2xl">
-            <div class="absolute inset-0 opacity-40 mix-blend-overlay">
-                <!-- Gunakan imej yang dijana sebagai latar belakang banner -->
-                <img src="/modern_mosque_banner_1775924354657.png" class="h-full w-full object-cover" alt="Banner Masjid">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-r from-primary-950 via-primary-900/80 to-transparent"></div>
-            <div class="relative z-10 flex flex-col justify-center p-8 md:p-12 md:w-2/3">
-                <span class="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300 backdrop-blur-md">Portal Rasmi Masjid</span>
-                <h1 class="mt-4 text-3xl font-extrabold text-white md:text-5xl tracking-tight leading-tight">Membangun Ummah, Menghidupkan Sunnah.</h1>
-                <p class="mt-4 text-emerald-100/80 text-lg max-w-md">Kini lebih mudah menguruskan kebajikan dan rekod anak kariah secara digital dan efisien.</p>
-                <div class="mt-8 flex flex-wrap gap-4">
-                    <a href="{{ route('announcements.create') }}" class="rounded-xl bg-white px-6 py-3 text-sm font-bold text-primary-900 shadow-lg hover:bg-emerald-50 transition-all">Buat Hebahan Baru</a>
-                    <a href="{{ route('members.index') }}" class="rounded-xl bg-primary-800/50 border border-white/20 px-6 py-3 text-sm font-bold text-white backdrop-blur-md hover:bg-primary-800/70 transition-all">Senarai Kariah</a>
+        <!-- Stats Cards Grid (Paces Style) -->
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            @php
+                $statsConfig = [
+                    ['label' => 'Anak Kariah', 'value' => $stats['members'], 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'color' => 'primary', 'desc' => 'Total Members'],
+                    ['label' => 'AJK Masjid', 'value' => $stats['committeeMembers'], 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857', 'color' => 'success', 'desc' => 'Received Income'],
+                    ['label' => 'Kutipan RM', 'value' => number_format($stats['payments'], 0), 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'color' => 'warning', 'desc' => 'Pending Payments'],
+                    ['label' => 'Peti Dokumen', 'value' => $stats['documents'], 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2', 'color' => 'danger', 'desc' => 'Refunded Income'],
+                ];
+                
+                $colorMap = [
+                    'primary' => ['bg' => 'bg-primary-50', 'text' => 'text-primary-600', 'shadow' => 'shadow-primary-100'],
+                    'success' => ['bg' => 'bg-emerald-50', 'text' => 'text-emerald-500', 'shadow' => 'shadow-emerald-100'],
+                    'warning' => ['bg' => 'bg-amber-50', 'text' => 'text-amber-500', 'shadow' => 'shadow-amber-100'],
+                    'danger' => ['bg' => 'bg-rose-50', 'text' => 'text-rose-500', 'shadow' => 'shadow-rose-100'],
+                ];
+            @endphp
+
+            @foreach($statsConfig as $stat)
+                <div class="relative overflow-hidden rounded-[1.5rem] bg-white p-8 shadow-sm border border-slate-100 transition-all hover:shadow-xl hover:shadow-slate-200/50">
+                    <div class="flex items-center justify-between">
+                         <div class="flex h-12 w-12 items-center justify-center rounded-full {{ $colorMap[$stat['color']]['bg'] }} {{ $colorMap[$stat['color']]['text'] }}">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-black text-slate-900 tracking-tight">${{ $stat['value'] }}</p>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">{{ $stat['desc'] }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
 
-        <!-- Main Dashboard Content -->
-        <div class="grid gap-10 lg:grid-cols-3">
-            <!-- Left Side: Stats and Quick Actions -->
-            <div class="lg:col-span-2 space-y-10">
-                <!-- Stats Grid -->
-                <div class="grid gap-6 sm:grid-cols-2">
-                    @php
-                        $statsConfig = [
-                            ['label' => 'Anak Kariah', 'value' => $stats['members'], 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'color' => 'emerald', 'desc' => 'Penduduk berdaftar'],
-                            ['label' => 'AJK Masjid', 'value' => $stats['committeeMembers'], 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857', 'color' => 'blue', 'desc' => 'Barisan kepimpinan'],
-                            ['label' => 'Kutipan RM', 'value' => number_format($stats['payments'], 2), 'icon' => 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4', 'color' => 'primary', 'desc' => 'Jumlah keseluruhan'],
-                            ['label' => 'Peti Dokumen', 'value' => $stats['documents'], 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2', 'color' => 'amber', 'desc' => 'Arkib digital'],
-                        ];
-                    @endphp
-
-                    @foreach($statsConfig as $stat)
-                        <div class="card-zoom group relative overflow-hidden rounded-[2rem] bg-white p-6 shadow-sm border border-slate-100">
-                            <div class="flex items-center gap-5">
-                                <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-{{ $stat['color'] === 'primary' ? 'primary-50' : $stat['color'].'-50' }} text-{{ $stat['color'] === 'primary' ? 'primary-600' : $stat['color'].'-600' }} shadow-inner">
-                                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}" />
-                                    </svg>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-400 uppercase tracking-tight">{{ $stat['label'] }}</p>
-                                    <p class="text-3xl font-black text-slate-900 tracking-tight">{{ $stat['value'] }}</p>
-                                    <p class="text-[10px] text-slate-400 font-medium mt-1">{{ $stat['desc'] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+        <!-- Transactions Table Row (Paces Style Header) -->
+        <div class="rounded-[1.5rem] bg-white shadow-sm border border-slate-100 overflow-hidden">
+             <div class="p-8 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg class="h-5 w-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Search transactions..." class="w-full md:w-80 rounded-xl border-slate-100 bg-slate-50 py-3 pl-10 pr-4 text-sm font-medium focus:ring-2 focus:ring-primary-100 transition-all">
                 </div>
-
-                <!-- Quick Actions Navigation -->
-                <div class="rounded-[2.5rem] bg-white p-8 shadow-sm border border-slate-100">
-                    <h3 class="text-xl font-bold text-slate-900 border-l-4 border-primary-600 pl-4">Akses Pantas</h3>
-                    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-                         @php
-                            $quickActions = [
-                                ['label' => 'E-Khairat', 'icon' => 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z', 'color' => 'bg-emerald-50 text-emerald-600'],
-                                ['label' => 'Cetak Slip', 'icon' => 'M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z', 'color' => 'bg-blue-50 text-blue-600'],
-                                ['label' => 'Peti Aduan', 'icon' => 'M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z', 'color' => 'bg-amber-50 text-amber-600'],
-                                ['label' => 'Arkib PDF', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', 'color' => 'bg-indigo-50 text-indigo-600'],
-                            ];
-                        @endphp
-                        @foreach($quickActions as $action)
-                            <a href="#" class="flex flex-col items-center justify-center p-6 rounded-3xl border border-slate-50 hover:bg-slate-50 transition-all card-zoom group text-center">
-                                <div class="h-14 w-14 rounded-2xl {{ $action['color'] }} flex items-center justify-center shadow-lg shadow-current/10 mb-3 group-hover:scale-110 transition-transform">
-                                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}" />
-                                    </svg>
-                                </div>
-                                <span class="text-xs font-bold text-slate-700 tracking-tight">{{ $action['label'] }}</span>
-                            </a>
-                        @endforeach
+                <div class="flex items-center gap-3">
+                     <button class="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-primary-500/20 hover:bg-primary-700 transition-all">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Transaction
+                    </button>
+                    <div class="flex items-center gap-2 rounded-xl border border-slate-100 px-4 py-3 text-xs font-bold text-slate-600">
+                        Filter By: 
+                        <span class="flex items-center gap-1 text-slate-400">Type <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side: Salah Times and Recent Activities -->
-            <div class="space-y-10">
-                <!-- Salah Times Widget -->
-                <div class="rounded-[2.5rem] bg-primary-950 p-1 shadow-2xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 transform translate-x-12 -translate-y-12 rotate-12 opacity-10 group-hover:opacity-20 transition-opacity">
-                         <svg class="h-40 w-40 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19,21V5a2,2,0,0,0-2-2H7A2,2,0,0,0,5,5V21h2V5H17V21h2Z" />
-                        </svg>
-                    </div>
-                    <div class="p-8 relative z-10">
-                        <h3 class="text-xl font-bold text-white mb-6">Waktu Solat</h3>
-                        <div class="space-y-4">
-                            @php
+            <!-- Content Area (Quick Actions & Announcements) -->
+            <div class="grid lg:grid-cols-3 divide-x divide-slate-50 border-t border-slate-50">
+                <div class="lg:col-span-2 p-8 space-y-8">
+                     <h3 class="text-lg font-black text-slate-900">Aktiviti Semasa</h3>
+                     <div class="space-y-4">
+                        @forelse($recentAnnouncements as $item)
+                            <div class="flex items-center justify-between p-4 rounded-2xl border border-slate-50 hover:bg-slate-50/50 transition-all group">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary-50 group-hover:text-primary-600 transition-all">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-800">{{ $item->title }}</p>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ $item->created_at->format('d M, Y') }}</p>
+                                    </div>
+                                </div>
+                                <span class="rounded-lg bg-emerald-50 px-3 py-1 text-[10px] font-bold text-emerald-600 uppercase tracking-tighter">Published</span>
+                            </div>
+                        @empty
+                            <p class="text-center py-10 text-sm italic text-slate-400">Tiada rekod terbaru.</p>
+                        @endforelse
+                     </div>
+                </div>
+
+                <!-- Right Widget Area -->
+                <div class="p-8 space-y-10">
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 mb-6 uppercase tracking-tighter">Waktu Solat</h3>
+                        <div class="space-y-3">
+                             @php
                                 $salahTimes = [
                                     ['name' => 'Subuh', 'time' => '05:58', 'active' => false],
-                                    ['name' => 'Syuruk', 'time' => '07:12', 'active' => false],
                                     ['name' => 'Zohor', 'time' => '13:14', 'active' => true],
                                     ['name' => 'Asar', 'time' => '16:25', 'active' => false],
                                     ['name' => 'Maghrib', 'time' => '19:16', 'active' => false],
@@ -113,36 +105,27 @@
                                 ];
                             @endphp
                             @foreach($salahTimes as $salah)
-                                <div class="flex items-center justify-between p-3 rounded-2xl {{ $salah['active'] ? 'bg-primary-500/20 ring-1 ring-primary-400/50' : 'bg-white/5' }} transition-colors">
-                                    <div class="flex items-center gap-3">
-                                        <div class="h-2 w-2 rounded-full {{ $salah['active'] ? 'bg-emerald-400 animate-pulse' : 'bg-white/20' }}"></div>
-                                        <span class="text-sm font-bold {{ $salah['active'] ? 'text-emerald-300' : 'text-slate-300' }}">{{ $salah['name'] }}</span>
-                                    </div>
-                                    <span class="text-sm font-black {{ $salah['active'] ? 'text-white text-lg' : 'text-slate-400' }}">{{ $salah['time'] }}</span>
+                                <div class="flex items-center justify-between p-3.5 rounded-2xl {{ $salah['active'] ? 'bg-primary-600 text-white shadow-xl shadow-primary-200' : 'bg-slate-50 text-slate-600' }} transition-all">
+                                    <span class="text-xs font-black uppercase tracking-widest">{{ $salah['name'] }}</span>
+                                    <span class="text-sm font-black">{{ $salah['time'] }}</span>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-                </div>
 
-                <!-- Recent Announcements (Mini) -->
-                <div class="rounded-[2.5rem] bg-white p-1 shadow-sm border border-slate-100 overflow-hidden">
-                    <div class="p-6 border-b border-slate-50 flex items-center justify-between">
-                        <h3 class="font-bold text-slate-900">Hebahan</h3>
-                        <a href="{{ route('announcements.index') }}" class="text-[10px] font-bold text-primary-600 uppercase tracking-widest">Semua</a>
-                    </div>
-                    <div class="p-5 space-y-5">
-                        @forelse($recentAnnouncements as $item)
-                            <div class="flex gap-4 group">
-                                <div class="h-1 w-8 mt-2 rounded-full bg-primary-100 group-hover:bg-primary-600 transition-all shrink-0"></div>
-                                <div>
-                                    <p class="font-bold text-sm text-slate-800 leading-snug group-hover:text-primary-700 transition-colors">{{ $item->title }}</p>
-                                    <p class="mt-1 text-[10px] text-slate-400 font-bold uppercase tracking-tight">{{ optional($item->published_at)->diffForHumans() ?? $item->created_at->diffForHumans() }}</p>
-                                </div>
-                            </div>
-                        @empty
-                            <p class="py-10 text-center text-xs text-slate-400 italic">Tiada hebahan terkini.</p>
-                        @endforelse
+                    <!-- Quick Links Widget -->
+                    <div class="rounded-3xl bg-slate-900 p-6 shadow-2xl relative overflow-hidden group">
+                         <div class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-2 -translate-y-2 group-hover:scale-110 transition-transform">
+                             <svg class="h-20 w-20 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-white font-black text-sm uppercase tracking-widest mb-4 relative z-10">Manual Admin</h4>
+                        <p class="text-slate-400 text-[11px] font-medium leading-relaxed relative z-10 mb-6">Muat turun dokumen panduan penggunaan sistem digital masjid.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-xs font-black text-primary-400 uppercase tracking-widest hover:text-primary-300 transition-colors relative z-10">
+                            Download PDF 
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </a>
                     </div>
                 </div>
             </div>
