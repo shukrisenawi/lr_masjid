@@ -32,7 +32,7 @@
                         </div>
                         <div class="text-right">
                             <p class="text-2xl font-black text-slate-900 tracking-tight">${{ $stat['value'] }}</p>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">{{ $stat['desc'] }}</p>
+                            <p class="text-[15px] font-bold text-slate-400 uppercase tracking-widest mt-1">{{ $stat['desc'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -79,10 +79,10 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-bold text-slate-800">{{ $item->title }}</p>
-                                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ $item->created_at->format('d M, Y') }}</p>
+                                        <p class="text-[15px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ $item->created_at->format('d M, Y') }}</p>
                                     </div>
                                 </div>
-                                <span class="rounded-lg bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-600 uppercase tracking-tighter">Published</span>
+                                <span class="rounded-lg bg-emerald-50 px-3 py-1 text-[15px] font-bold text-emerald-600 uppercase tracking-tighter">Published</span>
                             </div>
                         @empty
                             <p class="text-center py-10 text-sm italic text-slate-400">Tiada rekod terbaru.</p>
@@ -121,7 +121,7 @@
                             </svg>
                         </div>
                         <h4 class="text-white font-black text-sm uppercase tracking-widest mb-4 relative z-10">Manual Admin</h4>
-                        <p class="text-slate-400 text-[11px] font-medium leading-relaxed relative z-10 mb-6">Muat turun dokumen panduan penggunaan sistem digital masjid.</p>
+                        <p class="text-slate-400 text-[15px] font-medium leading-relaxed relative z-10 mb-6">Muat turun dokumen panduan penggunaan sistem digital masjid.</p>
                         <a href="#" class="inline-flex items-center gap-2 text-xs font-black text-primary-400 uppercase tracking-widest hover:text-primary-300 transition-colors relative z-10">
                             Download PDF 
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
