@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-slate-100 text-slate-800;
+    }
+
+    input,
+    select,
+    textarea {
+        @apply text-sm;
+    }
+}

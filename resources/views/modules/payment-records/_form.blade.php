@@ -1,0 +1,8 @@
+@csrf
+<label class="mb-1 block text-sm">Penetapan Bayaran</label><select name="payment_assignment_id" class="w-full rounded-lg border-slate-300">@foreach($assignments as $assignment)<option value="{{ $assignment->id }}" @selected((string) old('payment_assignment_id', $record->payment_assignment_id ?? '') === (string) $assignment->id)>{{ $assignment->member->full_name }} - {{ $assignment->paymentType->name }}</option>@endforeach</select>
+<label class="mb-1 mt-4 block text-sm">Amaun (RM)</label><input type="number" step="0.01" name="amount" value="{{ old('amount', $record->amount ?? '') }}" class="w-full rounded-lg border-slate-300">
+<label class="mb-1 mt-4 block text-sm">Tarikh Bayar</label><input type="date" name="paid_at" value="{{ old('paid_at', isset($record) && $record->paid_at ? $record->paid_at->format('Y-m-d') : '') }}" class="w-full rounded-lg border-slate-300">
+<label class="mb-1 mt-4 block text-sm">Kaedah</label><input name="method" value="{{ old('method', $record->method ?? '') }}" class="w-full rounded-lg border-slate-300">
+<label class="mb-1 mt-4 block text-sm">No Rujukan</label><input name="reference_no" value="{{ old('reference_no', $record->reference_no ?? '') }}" class="w-full rounded-lg border-slate-300">
+<label class="mb-1 mt-4 block text-sm">Nota</label><textarea name="notes" rows="3" class="w-full rounded-lg border-slate-300">{{ old('notes', $record->notes ?? '') }}</textarea>
+<div class="mt-6 flex gap-2"><button class="rounded-lg bg-slate-900 px-4 py-2 text-sm text-white">Simpan</button><a href="{{ route('payment-records.index') }}" class="rounded-lg bg-slate-100 px-4 py-2 text-sm">Batal</a></div>

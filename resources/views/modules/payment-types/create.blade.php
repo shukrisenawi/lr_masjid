@@ -1,0 +1,1 @@
+<x-app-layout><x-slot name="header"><h2 class="text-2xl font-semibold text-slate-900">Tambah Jenis Bayaran</h2></x-slot><div class="py-6"><div class="mx-auto max-w-xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100"><form method="POST" action="{{ route('payment-types.store') }}">@include('modules.payment-types._form')</form></div></div></x-app-layout>
