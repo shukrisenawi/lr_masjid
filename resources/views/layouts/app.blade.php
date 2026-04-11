@@ -55,7 +55,11 @@
                                     <p class="mt-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
                                 </div>
                                 <div class="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
-                                     <span class="text-xs font-black text-slate-400 uppercase">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    @if (Auth::user()->avatar_path)
+                                        <img src="{{ asset('storage/'.Auth::user()->avatar_path) }}" alt="Avatar pengguna" class="h-full w-full object-cover">
+                                    @else
+                                        <span class="text-xs font-black text-slate-400 uppercase">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>

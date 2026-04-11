@@ -57,8 +57,12 @@
         <div class="p-6">
             <div x-data="{ userMenu: false }" class="relative">
                 <button @click="userMenu = !userMenu" class="flex w-full items-center gap-3 rounded-[1.2rem] bg-sidebar-hover p-4 border border-white/5 shadow-xl">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-sm font-black text-white uppercase shadow-lg shadow-primary-500/20">
-                        {{ substr(Auth::user()->name, 0, 2) }}
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-sm font-black text-white uppercase shadow-lg shadow-primary-500/20 overflow-hidden">
+                        @if (Auth::user()->avatar_path)
+                            <img src="{{ asset('storage/'.Auth::user()->avatar_path) }}" alt="Avatar pengguna" class="h-full w-full object-cover">
+                        @else
+                            {{ substr(Auth::user()->name, 0, 2) }}
+                        @endif
                     </div>
                     <div class="flex-1 text-left min-w-0">
                         <p class="truncate text-xs font-black text-white tracking-tight leading-none capitalize">{{ Auth::user()->name }}</p>
