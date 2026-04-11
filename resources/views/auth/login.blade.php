@@ -49,5 +49,14 @@
                 {{ __('Masuk Sekarang') }}
             </x-primary-button>
         </div>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <a href="{{ route('register') }}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50">
+                Daftar Akaun
+            </a>
+            <a href="{{ route('auth.google.redirect') }}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50">
+                Daftar / Login Google
+            </a>
+        </div>
     </form>
 </x-guest-layout>

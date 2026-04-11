@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <div class="mb-6">
+        <a href="{{ route('auth.google.redirect') }}" class="inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50">
+            Daftar / Login Google
+        </a>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

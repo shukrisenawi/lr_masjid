@@ -103,6 +103,11 @@
                                 </div>
                             </div>
                         @endif
+                        @if (session('warning'))
+                            <div class="mb-6 rounded-2xl border border-amber-100 bg-amber-50/70 p-4 text-sm text-amber-800 backdrop-blur-sm">
+                                {{ session('warning') }}
+                            </div>
+                        @endif
                         {{ $slot }}
                     </div>
                 </main>

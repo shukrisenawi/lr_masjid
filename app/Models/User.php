@@ -15,6 +15,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'google_id',
         'role_id',
         'name',
         'full_name',
@@ -45,5 +46,14 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function isProfileComplete(): bool
+    {
+        return filled($this->name)
+            && filled($this->email)
+            && filled($this->full_name)
+            && filled($this->phone)
+            && filled($this->avatar_path);
     }
 }

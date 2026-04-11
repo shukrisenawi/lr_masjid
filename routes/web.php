@@ -25,13 +25,15 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'profile.completed', 'verified'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
+Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::resource('members', MemberController::class)->except('show');
     Route::resource('committee-members', CommitteeMemberController::class)->except('show');
     Route::resource('positions', PositionController::class)->except('show');
