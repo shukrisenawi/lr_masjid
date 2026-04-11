@@ -1,28 +1,28 @@
 <aside
     x-cloak
     :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-    class="fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-800 bg-sidebar transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shadow-2xl shadow-slate-900/10"
+    class="fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-800/70 bg-sidebar transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shadow-2xl shadow-slate-900/10"
 >
     <div class="flex h-full flex-col">
         <!-- Brand / Logo -->
-        <div class="flex h-20 items-center px-6 mb-4">
+        <div class="mb-4 flex h-24 items-center px-6">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                <div class="grid h-10 w-10 place-items-center rounded-xl bg-primary-600 font-bold text-white shadow-lg shadow-primary-500/20">
+                <div class="grid h-11 w-11 place-items-center rounded-xl bg-primary-600 font-bold text-white shadow-lg shadow-primary-500/20">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                  </div>
                 <div>
-                    <h1 class="text-base font-black tracking-tight text-white uppercase italic">Paces <span class="text-primary-400">Masjid</span></h1>
-                    <p class="text-[15px] uppercase tracking-[0.2em] text-sidebar-text font-bold">Administrator Panel</p>
+                    <h1 class="text-lg font-black tracking-tight text-white uppercase italic">Paces <span class="text-primary-400">Masjid</span></h1>
+                    <p class="text-sm uppercase tracking-[0.18em] text-sidebar-text font-semibold">Administrator Panel</p>
                 </div>
             </a>
         </div>
 
         <!-- Navigation Links -->
-        <nav class="flex-1 space-y-1 overflow-y-auto px-4 custom-scrollbar">
-            <div class="px-3 mb-4 mt-2">
-                <p class="text-[15px] uppercase tracking-widest text-sidebar-text font-black opacity-30">Menu Utama</p>
+        <nav class="custom-scrollbar flex-1 space-y-1.5 overflow-y-auto px-4">
+            <div class="mb-4 mt-2 px-3">
+                <p class="text-sm uppercase tracking-widest text-sidebar-text font-black opacity-45">Menu Utama</p>
             </div>
             
             @php
@@ -42,7 +42,7 @@
                     $isActive = request()->routeIs($item['route']) || (str_contains($item['route'], '.index') && request()->routeIs(str_replace('.index', '.*', $item['route'])));
                 @endphp
                 <a href="{{ route($item['route']) }}"
-                   class="group flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-bold transition-all duration-200 {{ $isActive ? 'bg-primary-600/10 text-primary-400' : 'text-sidebar-text hover:bg-sidebar-hover hover:text-white' }}">
+                   class="group flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-semibold transition-all duration-200 {{ $isActive ? 'bg-primary-600/15 text-primary-300' : 'text-sidebar-text hover:bg-sidebar-hover hover:text-white' }}">
                     <div class="flex items-center gap-3">
                         <svg class="h-5 w-5 transition-colors duration-200 {{ $isActive ? 'text-primary-400' : 'text-sidebar-text group-hover:text-primary-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $item['icon'] }}" />
@@ -56,8 +56,8 @@
         <!-- User Profile -->
         <div class="p-6">
             <div x-data="{ userMenu: false }" class="relative">
-                <button @click="userMenu = !userMenu" class="flex w-full items-center gap-3 rounded-[1.2rem] bg-sidebar-hover p-4 border border-white/5 shadow-xl">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-sm font-black text-white uppercase shadow-lg shadow-primary-500/20 overflow-hidden">
+                <button @click="userMenu = !userMenu" class="flex w-full items-center gap-3 rounded-[1.2rem] border border-white/5 bg-sidebar-hover p-4 shadow-xl">
+                    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-sm font-black text-white uppercase shadow-lg shadow-primary-500/20 overflow-hidden">
                         @if (Auth::user()->avatar_path)
                             <img src="{{ asset('storage/'.Auth::user()->avatar_path) }}" alt="Avatar pengguna" class="h-full w-full object-cover">
                         @else
@@ -65,8 +65,8 @@
                         @endif
                     </div>
                     <div class="flex-1 text-left min-w-0">
-                        <p class="truncate text-xs font-black text-white tracking-tight leading-none capitalize">{{ Auth::user()->name }}</p>
-                        <p class="mt-1 truncate text-[15px] text-sidebar-text font-bold uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
+                        <p class="truncate text-sm font-bold text-white tracking-tight leading-none capitalize">{{ Auth::user()->name }}</p>
+                        <p class="mt-1 truncate text-sm text-sidebar-text font-semibold uppercase tracking-wide">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
                     </div>
                 </button>
 
@@ -77,12 +77,12 @@
                      x-transition:enter-start="transform opacity-0 scale-95"
                      x-transition:enter-end="transform opacity-100 scale-100"
                      class="absolute bottom-full left-0 mb-4 w-full origin-bottom rounded-2xl border border-white/5 bg-sidebar-hover p-2 shadow-2xl z-50">
-                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold text-white hover:bg-white/5 transition-colors">
+                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-white hover:bg-white/5 transition-colors">
                         Profil Saya
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold text-red-400 hover:bg-red-400/10 transition-colors">
+                        <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-red-400 hover:bg-red-400/10 transition-colors">
                             Log Keluar
                         </button>
                     </form>

@@ -3,28 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --text-xs: 1rem;
-        --text-sm: 1rem;
-    }
-
     html {
-        font-size: 15px;
+        font-size: 16px;
+        scroll-behavior: smooth;
     }
 
     body {
-        @apply bg-[#f3f6f9] text-slate-800 selection:bg-primary-100 selection:text-primary-900;
+        @apply text-slate-800 selection:bg-primary-100 selection:text-primary-900;
         font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-        background-image: radial-gradient(#6366f1 0.5px, transparent 0.5px);
-        background-size: 24px 24px;
+        line-height: 1.65;
+        background-color: #f2f5fa;
+        background-image:
+            radial-gradient(circle at 12% 14%, rgba(99, 102, 241, 0.1), transparent 26%),
+            radial-gradient(circle at 86% 18%, rgba(56, 189, 248, 0.08), transparent 24%),
+            linear-gradient(180deg, #f8fafc 0%, #eef3f8 100%);
         background-attachment: fixed;
-        background-opacity: 0.05;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        @apply text-slate-900;
+        line-height: 1.25;
     }
 
     input,
     select,
     textarea {
-        @apply text-sm;
+        @apply text-base;
     }
 
     /* Custom Scrollbar */
@@ -48,4 +56,78 @@
     .card-zoom {
         @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-900/5;
     }
+}
+
+@layer components {
+    .ui-surface {
+        @apply rounded-3xl border border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-sm;
+    }
+
+    .ui-page-content > * + * {
+        @apply mt-6;
+    }
+}
+
+.ui-redesign .text-xs {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+}
+
+.ui-redesign .text-sm {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+}
+
+.ui-redesign .rounded-2xl.bg-white,
+.ui-redesign .rounded-3xl.bg-white,
+.ui-redesign .rounded-\[1\.5rem\].bg-white {
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.ui-redesign table th {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #475569;
+}
+
+.ui-redesign table th,
+.ui-redesign table td {
+    padding-top: 0.9rem !important;
+    padding-bottom: 0.9rem !important;
+}
+
+.ui-redesign table tr {
+    vertical-align: middle;
+}
+
+.ui-redesign input:not([type='checkbox']):not([type='radio']),
+.ui-redesign select,
+.ui-redesign textarea {
+    min-height: 2.95rem;
+    border-radius: 0.9rem !important;
+    border-color: #cbd5e1 !important;
+    padding: 0.68rem 0.95rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+.ui-redesign label {
+    font-size: 0.98rem !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+}
+
+.ui-redesign .mt-6.flex.gap-2,
+.ui-redesign .mt-4.flex.gap-2,
+.ui-redesign .flex.gap-2 {
+    gap: 0.75rem;
+}
+
+.ui-redesign .p-4 {
+    padding: 1.2rem !important;
+}
+
+.ui-redesign .p-5 {
+    padding: 1.45rem !important;
 }
