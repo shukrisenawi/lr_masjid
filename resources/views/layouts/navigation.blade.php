@@ -49,15 +49,22 @@
         </nav>
 
         <!-- User Profile -->
-        <div class="border-t border-emerald-50 p-4">
-            <div x-data="{ userMenu: false }" class="relative">
+        <div class="border-t border-emerald-50 p-4 relative overflow-hidden">
+            <!-- Decorative Background for User Section -->
+            <div class="absolute bottom-0 right-0 p-4 opacity-5 pointer-events-none transform translate-x-4 translate-y-4">
+                <svg class="h-24 w-24 text-primary-900" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
+                </svg>
+            </div>
+            
+            <div x-data="{ userMenu: false }" class="relative z-10">
                 <button @click="userMenu = !userMenu" class="flex w-full items-center gap-3 rounded-xl p-2 transition-colors hover:bg-slate-50">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700 uppercase">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700 uppercase ring-2 ring-white shadow-sm">
                         {{ substr(Auth::user()->name, 0, 2) }}
                     </div>
                     <div class="flex-1 text-left">
                         <p class="truncate text-sm font-bold text-slate-900 leading-none">{{ Auth::user()->full_name ?? Auth::user()->name }}</p>
-                        <p class="mt-1 truncate text-[11px] text-slate-500 lowercase">{{ Auth::user()->email }}</p>
+                        <p class="mt-1 truncate text-[10px] text-slate-400 font-bold uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Pentadbir' }}</p>
                     </div>
                 </button>
 
