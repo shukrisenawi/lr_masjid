@@ -79,10 +79,10 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-bold text-slate-800">{{ $item->title }}</p>
-                                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ $item->created_at->format('d M, Y') }}</p>
+                                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ $item->created_at->format('d M, Y') }}</p>
                                     </div>
                                 </div>
-                                <span class="rounded-lg bg-emerald-50 px-3 py-1 text-[10px] font-bold text-emerald-600 uppercase tracking-tighter">Published</span>
+                                <span class="rounded-lg bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-600 uppercase tracking-tighter">Published</span>
                             </div>
                         @empty
                             <p class="text-center py-10 text-sm italic text-slate-400">Tiada rekod terbaru.</p>

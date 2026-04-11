@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        font-size: 11px;
+    }
+
     body {
         @apply bg-[#f3f6f9] text-slate-800 selection:bg-primary-100 selection:text-primary-900;
+        font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
         background-image: radial-gradient(#6366f1 0.5px, transparent 0.5px);
         background-size: 24px 24px;
         background-attachment: fixed;

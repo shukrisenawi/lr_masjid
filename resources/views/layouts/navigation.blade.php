@@ -14,7 +14,7 @@
                  </div>
                 <div>
                     <h1 class="text-base font-black tracking-tight text-white uppercase italic">Paces <span class="text-primary-400">Masjid</span></h1>
-                    <p class="text-[9px] uppercase tracking-[0.2em] text-sidebar-text font-bold">Administrator Panel</p>
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-sidebar-text font-bold">Administrator Panel</p>
                 </div>
             </a>
         </div>
@@ -22,7 +22,7 @@
         <!-- Navigation Links -->
         <nav class="flex-1 space-y-1 overflow-y-auto px-4 custom-scrollbar">
             <div class="px-3 mb-4 mt-2">
-                <p class="text-[10px] uppercase tracking-widest text-sidebar-text font-black opacity-30">Menu Utama</p>
+                <p class="text-[11px] uppercase tracking-widest text-sidebar-text font-black opacity-30">Menu Utama</p>
             </div>
             
             @php
@@ -66,7 +66,7 @@
                     </div>
                     <div class="flex-1 text-left min-w-0">
                         <p class="truncate text-xs font-black text-white tracking-tight leading-none capitalize">{{ Auth::user()->name }}</p>
-                        <p class="mt-1 truncate text-[9px] text-sidebar-text font-bold uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
+                        <p class="mt-1 truncate text-[11px] text-sidebar-text font-bold uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
                     </div>
                 </button>
 
