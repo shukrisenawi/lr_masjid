@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+    :root {
+        --text-xs: 1rem;
+        --text-sm: 1rem;
+    }
     html {
-        font-size: 11px;
+        font-size: 15px;
     }
 
     body {

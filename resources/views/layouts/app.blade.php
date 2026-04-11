@@ -52,7 +52,7 @@
                             <div class="flex items-center gap-3 pl-2">
                                 <div class="text-right hidden sm:block">
                                     <p class="text-xs font-black text-slate-900 leading-none capitalize">{{ Auth::user()->name }}</p>
-                                    <p class="mt-1 text-[11px] font-bold text-slate-400 uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
+                                    <p class="mt-1 text-[15px] font-bold text-slate-400 uppercase tracking-widest">{{ Auth::user()->role?->name ?? 'Admin head' }}</p>
                                 </div>
                                 <div class="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
                                     @if (Auth::user()->avatar_path)
